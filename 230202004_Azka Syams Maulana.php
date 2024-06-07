@@ -28,7 +28,6 @@
 
             if($this->LEmpty()) {
                 $this->head = $this->tail = $newNode;
-                $this->tail->next = $this->head;
                 return;
             }
 
@@ -42,7 +41,6 @@
 
             if($this->LEmpty()) {
                 $this->head = $this->tail = $newNode;
-                $this->tail->next = $this->head;
                 return;
             }
 
@@ -77,10 +75,10 @@
             }
 
             $current = $this->head;
-            do {
+            while($current->next != $this->head){
                 echo $current->data . ", ";
                 $current = $current->next;
-            } while($current != $this->head);
+            }
         }
     }   
 
