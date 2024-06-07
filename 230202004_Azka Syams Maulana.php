@@ -25,37 +25,36 @@
 
         public function InsertD($d) {
             $newNode = new Node($d);
-            $newNode->data = $d;
 
             if($this->LEmpty()) {
                 $this->head = $this->tail = $newNode;
+                $this->tail->next = $this->head;
                 return;
             }
 
             $newNode->next = $this->head;
             $this->head = $newNode;
-            $this->head = $this->tail->next;
             $this->tail->next = $this->head;
         }
 
         public function InsertB($d) {
             $newNode = new Node($d);
-            $newNode->data = $d;
 
             if($this->LEmpty()) {
                 $this->head = $this->tail = $newNode;
+                $this->tail->next = $this->head;
                 return;
             }
 
-            $newNode = $this->tail->next;
+            $this->tail->next = $newNode;
             $this->tail = $newNode;
-            $this->head = $this->tail->next;
             $this->tail->next = $this->head;
         }
 
         public function HapusD() {
             if($this->LEmpty()) {
-                return "List Kosong!";
+                echo "List Kosong!";
+                return;
             }
 
             if($this->head == $this->tail) {
@@ -66,7 +65,6 @@
 
             $hapus = $this->head;
             $this->head = $this->head->next;
-            $this->head = $this->tail->next;
             $this->tail->next = $this->head;
             unset($hapus);
             echo "Data berhasil dihapus!";
@@ -74,16 +72,17 @@
         
         public function PrintList() {
             if($this->LEmpty()) {
-                return "List Kosong!";
+                echo "List Kosong!";
+                return;
             }
 
             $current = $this->head;
-            while($current != $this->tail->next) {
+            do {
                 echo $current->data . ", ";
                 $current = $current->next;
-            }
+            } while($current != $this->head);
         }
-    }
+    }   
 
     if(!isset($_SESSION['linkList'])) {
         $_SESSION['linkList'] = new LinkList();
@@ -122,8 +121,6 @@
                         <?php 
                         if(isset($_POST['data_depan']) && isset($_POST['submit_depan']))  {
                             $_SESSION['linkList']->InsertD($_POST['data_depan']);
-                            header("Location: ".$_SERVER['PHP_SELF']);
-                            exit();
                         }
                         ?>
                     <?php
@@ -138,8 +135,6 @@
                         <?php 
                         if(isset($_POST['data_belakang']) && isset($_POST['submit_belakang']))  {
                             $_SESSION['linkList']->InsertB($_POST['data_belakang']);
-                            header("Location: ".$_SERVER['PHP_SELF']);
-                            exit();
                         }
                         ?>
                     <?php
@@ -153,8 +148,6 @@
                         <?php 
                         if(isset($_POST['hapus_depan'])) {
                             $_SESSION['linkList']->HapusD();
-                            header("Location: ".$_SERVER['PHP_SELF']);
-                            exit();
                         }
                         ?>
                     <?php
