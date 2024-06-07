@@ -44,7 +44,7 @@
                 return;
             }
 
-            $this->tail->next = $newNode;
+            $newNode = $this->tail->next;
             $this->tail = $newNode;
             $this->tail->next = $this->head;
         }
@@ -87,6 +87,8 @@
     }
 
     print_r($_SESSION['linkList']);
+
+    // unset($_SESSION['linkList']);
 ?>
 
 <!DOCTYPE html>
